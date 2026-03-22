@@ -1,24 +1,24 @@
 import express from 'express';
+import userData from './user.json' with { type: 'json' };
 const app=express();
 
 app.get('/', (req, res) => {
-    const users = ['anshu','sonam','peter','akriti'];
-    let data=`<ul>`;
-    for(let i=0;i<users.length;i++){
-        const capName = capitalize(users[i]);
-        data+=`<li><a href="user/${users[i]}">${users[i]}</li>`
-        console.log(users[i]);
-    }
-    data+='</ul>'
-    res.send(data);
+    console.log(userData);
+    res.send(userData);
 });
 
-app.get('/user/:name',(req,res)=>{
-    console.log(req.params.name);
-    const username = capitalize(req.params.name);
-    res.send(`This is ${username}'s profile`);
-})
 
+app.get('/user/:id', (req, res) => {
+    const id= req.params.id;
+    let filterData = userData.filter((user)=>user.id == id);
+    res.send(filterData);
+});
+
+app.get('/username/:name', (req, res) => {
+    const name= req.params.name;
+    let filterData = userData.filter((user)=>user.name.toLocaleLowerCase() == name.toLowerCase());
+    res.send(filterData);
+});
 console.log("Starting server");
 app.listen(3000, () => {
     console.log("Server running on port 3000");
