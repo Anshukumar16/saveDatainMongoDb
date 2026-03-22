@@ -1,14 +1,22 @@
 import express from 'express';
-import { handleUsers } from './controller/usercontroller.js';
 const app=express();
 
-app.set('view engine','ejs');
-
 app.get('/', (req, res) => {
-    res.send("Working");
+    const users = ['anshu','sonam','peter','akriti'];
+    let data=`<ul>`;
+    for(let i=0;i<users.length;i++){
+        data+=`<li><a href="user/${users[i]}">${users[i]}</li>`
+        console.log(users[i]);
+    }
+    data+='</ul>'
+    res.send(data);
 });
 
-app.get('/users',handleUsers);
+app.get('/user/:name',(req,res)=>{
+    console.log(req.params.name);
+    const username = req.params.name;
+    res.send(`This is ${username}'s profile`);
+})
 
 console.log("Starting server");
 app.listen(3000, () => {
