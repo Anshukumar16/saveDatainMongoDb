@@ -5,6 +5,7 @@ app.get('/', (req, res) => {
     const users = ['anshu','sonam','peter','akriti'];
     let data=`<ul>`;
     for(let i=0;i<users.length;i++){
+        const capName = capitalize(users[i]);
         data+=`<li><a href="user/${users[i]}">${users[i]}</li>`
         console.log(users[i]);
     }
@@ -14,7 +15,7 @@ app.get('/', (req, res) => {
 
 app.get('/user/:name',(req,res)=>{
     console.log(req.params.name);
-    const username = req.params.name;
+    const username = capitalize(req.params.name);
     res.send(`This is ${username}'s profile`);
 })
 
