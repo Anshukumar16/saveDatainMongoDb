@@ -3,22 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>user list</title>
+    <title>Document</title>
 </head>
 <body>
     <ul>
-        <% for(let i=0;i<users.length;i++){
-            %>
+        <% for(let i=0; i<users.length; i++){ %>
             <li><%= users[i] %></li>
-       <% } %>
-
-       <% if(islogin){%>
-        <h1>Welcome to the user list</h1>
-       <%}
-         else{ %>
-          <h1>Please login to see the user list</h1>
-         <%}%>
-       
+            <% } %>
     </ul>
 </body>
 </html>
