@@ -1,25 +1,39 @@
 import express from 'express';
-import userData from './user.json' with { type: 'json' };
-const app=express();
+import { MongoClient } from 'mongodb';
+const dbName = 'youtube-app-1';
+const url="mongodb://localhost:27017";
 
-app.get('/', (req, res) => {
-    console.log(userData);
-    res.send(userData);
-});
+const client = new MongoClient(url);
+
+const app = express();
+app.set('view engine', 'ejs');
+
+client.connect().then((connection)=>{
+  const db=  connection.db(dbName);
+
+    app.get("/api",async(req,res)=>{
+        const collection = db.collection("students");
+        const students = await collection.find().toArray();
+        res.send(students);
+    });
+
+    app.get("/ui",async(req,res)=>{
+        const collection = db.collection("students");
+        const students = await collection.find().toArray();
+       res.render('students',{students})
+    });
+})
 
 
-app.get('/user/:id', (req, res) => {
-    const id= req.params.id;
-    let filterData = userData.filter((user)=>user.id == id);
-    res.send(filterData);
-});
+// app.get('/', async(req, res) => {
+//     await client.connect()
+//     const db=client.db(dbName);
+//     const collection=db.collection('students');
+//     const students = await collection.find().toArray();
+//     console.log(students);
 
-app.get('/username/:name', (req, res) => {
-    const name= req.params.name;
-    let filterData = userData.filter((user)=>user.name.toLocaleLowerCase() == name.toLowerCase());
-    res.send(filterData);
-});
-console.log("Starting server");
-app.listen(3000, () => {
-    console.log("Server running on port 3000");
-});
+//     res.render('students', {students});
+   
+// });
+
+app.listen(3200);
