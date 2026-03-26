@@ -25,7 +25,7 @@ client.connect().then((connection)=>{
     });
 
     app.get('/add',(req,res)=>{
-        res.render(add-student)
+        res.render('add-student')
     })
     app.post("/add-student",async(req,res)=>{
        // console.log(req.body);
@@ -35,6 +35,8 @@ client.connect().then((connection)=>{
         // const students = await collection.find().toArray();
         res.send("data saved");
     });
+
+    
 })
 
 
@@ -49,4 +51,4 @@ client.connect().then((connection)=>{
    
 // });
 
-app.listen(3100);
+app.listen(3300);
