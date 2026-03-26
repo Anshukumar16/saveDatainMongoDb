@@ -1,4 +1,14 @@
 node_modules/
-.DS_Store
+npm-debug.log
+.npm
 *.log
+.DS_Store
 .env
+.env.local
+.vscode/
+*.swp
+*.swo
+*~
+.idea/
+dist/
+build/
